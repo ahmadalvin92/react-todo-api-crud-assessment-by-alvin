@@ -5,6 +5,7 @@ import PaginationControls from '../components/PaginationControls';
 import SearchInput from '../components/SearchInput';
 import TodoForm from '../components/TodoForm';
 import { useApiTodos } from '../hooks/useApiTodos';
+import { useDebounce } from '../hooks/useDebounce';
 
 function ApiTodoPage() {
   const {
@@ -23,9 +24,12 @@ function ApiTodoPage() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(5);
+  const debouncedKeyword = useDebounce(searchKeyword);
+  const totalDone = todos.filter((todo) => todo.status === 'done').length;
+  const totalPending = todos.length - totalDone;
 
   const filteredTodos = useMemo(() => {
-    const keyword = searchKeyword.trim().toLowerCase();
+    const keyword = debouncedKeyword.trim().toLowerCase();
 
     return todos.filter((todo) => {
       const matchKeyword = todo.title.toLowerCase().includes(keyword);
@@ -33,7 +37,7 @@ function ApiTodoPage() {
 
       return matchKeyword && matchStatus;
     });
-  }, [activeFilter, searchKeyword, todos]);
+  }, [activeFilter, debouncedKeyword, todos]);
 
   const totalPages = Math.max(1, Math.ceil(filteredTodos.length / limit));
   const paginatedTodos = useMemo(() => {
@@ -43,7 +47,7 @@ function ApiTodoPage() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [activeFilter, limit, searchKeyword]);
+  }, [activeFilter, debouncedKeyword, limit]);
 
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -102,6 +106,21 @@ function ApiTodoPage() {
 
       {error && <div className="alert error-alert">{error}</div>}
       {message && <div className="alert success-alert">{message}</div>}
+
+      <div className="summary-grid">
+        <article className="summary-card accent-purple">
+          <span>Total database</span>
+          <strong>{todos.length}</strong>
+        </article>
+        <article className="summary-card accent-green">
+          <span>Selesai</span>
+          <strong>{totalDone}</strong>
+        </article>
+        <article className="summary-card accent-gold">
+          <span>Belum selesai</span>
+          <strong>{totalPending}</strong>
+        </article>
+      </div>
 
       <div className="todo-layout">
         <TodoForm

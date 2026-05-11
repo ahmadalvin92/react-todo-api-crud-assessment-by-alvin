@@ -1,6 +1,6 @@
-# Aplikasi Todo React
+# Aplikasi Todo React - PT. ATRIA ARTHA PERSADA
 
-Aplikasi ini dibuat untuk technical test frontend menggunakan ReactJS. Fitur utama dibagi menjadi dua bagian: Todo Lokal dan Todo Database.
+Aplikasi ini dibuat untuk technical test Fullstack WEB, Mobile, API di PT. ATRIA ARTHA PERSADA. Fitur utama dibagi menjadi dua bagian: Todo Lokal dan Todo Database.
 
 ## Fitur
 
@@ -11,6 +11,10 @@ Aplikasi ini dibuat untuk technical test frontend menggunakan ReactJS. Fitur uta
 - Pagination untuk data dari database.
 - Loading state dan pesan error sederhana.
 - Tampilan responsif untuk desktop dan mobile.
+- Mode gelap dan terang.
+- Pencarian memakai debounce.
+- Dashboard ringkasan data.
+- UI dibuat lebih modern, berwarna, dan tetap rapi.
 
 ## Teknologi
 
@@ -129,7 +133,7 @@ npm run build
 ## Catatan Arsitektur
 
 - `components` berisi komponen UI yang dipakai ulang.
-- `hooks` berisi logic todo lokal dan todo database.
+- `hooks` berisi logic todo lokal, todo database, dan debounce pencarian.
 - `services` berisi request Axios ke backend.
 - `server` berisi backend Express untuk koneksi ke MySQL.
 - `database` berisi schema MySQL.

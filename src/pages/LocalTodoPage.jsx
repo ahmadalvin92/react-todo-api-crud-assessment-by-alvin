@@ -3,6 +3,7 @@ import FilterTabs from '../components/FilterTabs';
 import SearchInput from '../components/SearchInput';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
+import { useDebounce } from '../hooks/useDebounce';
 import { useLocalTodos } from '../hooks/useLocalTodos';
 
 function LocalTodoPage() {
@@ -10,9 +11,12 @@ function LocalTodoPage() {
   const [editingTodo, setEditingTodo] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
+  const debouncedKeyword = useDebounce(searchKeyword);
+  const totalDone = todos.filter((todo) => todo.status === 'done').length;
+  const totalPending = todos.length - totalDone;
 
   const filteredTodos = useMemo(() => {
-    const keyword = searchKeyword.trim().toLowerCase();
+    const keyword = debouncedKeyword.trim().toLowerCase();
 
     return todos.filter((todo) => {
       const matchKeyword = todo.title.toLowerCase().includes(keyword);
@@ -20,7 +24,7 @@ function LocalTodoPage() {
 
       return matchKeyword && matchStatus;
     });
-  }, [activeFilter, searchKeyword, todos]);
+  }, [activeFilter, debouncedKeyword, todos]);
 
   function handleSubmitTodo(payload) {
     if (editingTodo) {
@@ -49,6 +53,21 @@ function LocalTodoPage() {
         <p className="muted-text">
           Todo yang dibuat di halaman ini tetap tersimpan setelah halaman dimuat ulang.
         </p>
+      </div>
+
+      <div className="summary-grid">
+        <article className="summary-card accent-blue">
+          <span>Total</span>
+          <strong>{todos.length}</strong>
+        </article>
+        <article className="summary-card accent-green">
+          <span>Selesai</span>
+          <strong>{totalDone}</strong>
+        </article>
+        <article className="summary-card accent-gold">
+          <span>Belum selesai</span>
+          <strong>{totalPending}</strong>
+        </article>
       </div>
 
       <div className="todo-layout">

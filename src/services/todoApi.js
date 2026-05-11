@@ -5,6 +5,11 @@ const todoApiClient = axios.create({
   timeout: 10000,
 });
 
+todoApiClient.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(error),
+);
+
 // Semua request database todo dikumpulkan di sini agar component tetap fokus ke UI.
 export async function fetchTodos() {
   const response = await todoApiClient.get('/todo');
