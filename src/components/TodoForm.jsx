@@ -41,14 +41,19 @@ function TodoForm({
     return Object.keys(nextErrors).length === 0;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (!validateForm()) {
       return;
     }
 
-    onSubmit(form);
+    const result = await onSubmit(form);
+
+    if (result === false) {
+      return;
+    }
+
     setForm(initialForm);
     setErrors({});
   }
