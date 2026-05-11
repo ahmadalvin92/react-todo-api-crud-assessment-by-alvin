@@ -5,6 +5,7 @@ import { getStorageData, setStorageData } from './utils/localStorage';
 import './styles.css';
 
 const THEME_KEY = 'tema-aplikasi-todo';
+const BRAND_LOGO = '/brand/todo-alvin-logo.png';
 
 const pages = {
   local: {
@@ -25,12 +26,20 @@ function App() {
     setStorageData(THEME_KEY, isDarkMode);
   }, [isDarkMode]);
 
+  useEffect(() => {
+    document.body.classList.toggle('dark-page', isDarkMode);
+
+    return () => {
+      document.body.classList.remove('dark-page');
+    };
+  }, [isDarkMode]);
+
   return (
     <main className={isDarkMode ? 'app-shell theme-dark' : 'app-shell'}>
       <section className="app-header">
         <div className="brand-block">
-          <div className="brand-mark" aria-hidden="true">
-            AA
+          <div className="brand-mark">
+            <img className="brand-logo" src={BRAND_LOGO} alt="Logo Todo Alvin" />
           </div>
           <div>
             <p className="eyebrow">PT. ATRIA ARTHA PERSADA</p>
