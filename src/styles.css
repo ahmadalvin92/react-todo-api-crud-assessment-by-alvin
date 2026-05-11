@@ -119,6 +119,13 @@ h2 {
   gap: 16px;
 }
 
+.page-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 .todo-layout {
   display: grid;
   grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
@@ -333,6 +340,54 @@ h2 {
   text-align: center;
 }
 
+.loading-state,
+.alert {
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.loading-state {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.error-alert {
+  border: 1px solid #fecdca;
+  background: #fef3f2;
+  color: #b42318;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+}
+
+.todo-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.todo-table th,
+.todo-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e4e7ec;
+  text-align: left;
+  vertical-align: top;
+}
+
+.todo-table th {
+  background: #f9fafb;
+  color: #344054;
+  font-size: 0.86rem;
+}
+
+.todo-table tr:last-child td {
+  border-bottom: 0;
+}
+
 @media (max-width: 760px) {
   .app-shell {
     width: min(100% - 24px, 1120px);
@@ -355,6 +410,11 @@ h2 {
 
   .content-panel {
     padding: 18px;
+  }
+
+  .page-title-row {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .todo-layout {
