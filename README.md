@@ -142,4 +142,30 @@ Data todo lokal tetap disimpan di browser. Data todo database tersimpan di MySQL
 
 ## Screenshot
 
-Screenshot dapat ditambahkan di bagian ini.
+Beberapa tampilan aplikasi yang sudah dibuat:
+
+### Todo Lokal
+
+![Todo lokal mode terang](docs/screenshots/todo-lokal-mode-terang.png)
+
+![Daftar todo lokal mode terang](docs/screenshots/todo-lokal-daftar-terang.png)
+
+![Pencarian todo lokal](docs/screenshots/todo-lokal-pencarian.png)
+
+### Todo Database
+
+![Todo database mode terang](docs/screenshots/todo-database-mode-terang.png)
+
+![Tabel todo database mode terang](docs/screenshots/todo-database-tabel-terang.png)
+
+![Pencarian todo database](docs/screenshots/todo-database-pencarian.png)
+
+### Mode Gelap
+
+![Todo lokal mode gelap](docs/screenshots/todo-lokal-mode-gelap.png)
+
+![Daftar todo lokal mode gelap](docs/screenshots/todo-lokal-daftar-gelap.png)
+
+![Todo database mode gelap](docs/screenshots/todo-database-mode-gelap.png)
+
+![Tabel todo database mode gelap](docs/screenshots/todo-database-tabel-gelap.png)
