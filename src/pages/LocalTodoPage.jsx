@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import FilterTabs from '../components/FilterTabs';
+import SearchInput from '../components/SearchInput';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
 import { useLocalTodos } from '../hooks/useLocalTodos';
@@ -6,6 +8,19 @@ import { useLocalTodos } from '../hooks/useLocalTodos';
 function LocalTodoPage() {
   const { todos, addTodo, updateTodo, toggleTodoStatus, deleteTodo } = useLocalTodos();
   const [editingTodo, setEditingTodo] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const filteredTodos = useMemo(() => {
+    const keyword = searchKeyword.trim().toLowerCase();
+
+    return todos.filter((todo) => {
+      const matchKeyword = todo.title.toLowerCase().includes(keyword);
+      const matchStatus = activeFilter === 'all' || todo.status === activeFilter;
+
+      return matchKeyword && matchStatus;
+    });
+  }, [activeFilter, searchKeyword, todos]);
 
   function handleSubmitTodo(payload) {
     if (editingTodo) {
@@ -49,13 +64,26 @@ function LocalTodoPage() {
         <section className="todo-list-section" aria-label="Daftar todo lokal">
           <div className="section-heading">
             <h3>Daftar Todo</h3>
-            <span>{todos.length} item</span>
+            <span>
+              {filteredTodos.length} dari {todos.length} item
+            </span>
           </div>
+
+          <div className="todo-toolbar">
+            <SearchInput
+              onChange={setSearchKeyword}
+              placeholder="Cari berdasarkan judul"
+              value={searchKeyword}
+            />
+            <FilterTabs activeFilter={activeFilter} onChange={setActiveFilter} />
+          </div>
+
           <TodoList
+            emptyMessage="Todo tidak ditemukan."
             onDelete={handleDeleteTodo}
             onEdit={setEditingTodo}
             onToggleStatus={toggleTodoStatus}
-            todos={todos}
+            todos={filteredTodos}
           />
         </section>
       </div>
