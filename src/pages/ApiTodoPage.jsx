@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ApiTodoTable from '../components/ApiTodoTable';
+import FilterTabs from '../components/FilterTabs';
+import PaginationControls from '../components/PaginationControls';
+import SearchInput from '../components/SearchInput';
 import TodoForm from '../components/TodoForm';
 import { useApiTodos } from '../hooks/useApiTodos';
 
@@ -16,6 +19,37 @@ function ApiTodoPage() {
     reloadTodos,
   } = useApiTodos();
   const [editingTodo, setEditingTodo] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+
+  const filteredTodos = useMemo(() => {
+    const keyword = searchKeyword.trim().toLowerCase();
+
+    return todos.filter((todo) => {
+      const matchKeyword = todo.title.toLowerCase().includes(keyword);
+      const matchStatus = activeFilter === 'all' || todo.status === activeFilter;
+
+      return matchKeyword && matchStatus;
+    });
+  }, [activeFilter, searchKeyword, todos]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredTodos.length / limit));
+  const paginatedTodos = useMemo(() => {
+    const startIndex = (currentPage - 1) * limit;
+    return filteredTodos.slice(startIndex, startIndex + limit);
+  }, [currentPage, filteredTodos, limit]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeFilter, limit, searchKeyword]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   async function handleSubmitTodo(payload) {
     if (editingTodo) {
@@ -83,12 +117,41 @@ function ApiTodoPage() {
           {loading ? (
             <div className="loading-state">Memuat data todo...</div>
           ) : (
-            <ApiTodoTable
-              onDelete={handleDeleteTodo}
-              onEdit={setEditingTodo}
-              onToggleStatus={handleToggleStatus}
-              todos={todos}
-            />
+            <>
+              <div className="section-heading">
+                <h3>Data Todo API</h3>
+                <span>
+                  {filteredTodos.length} dari {todos.length} item
+                </span>
+              </div>
+
+              <div className="todo-toolbar">
+                <SearchInput
+                  label="Cari Todo API"
+                  onChange={setSearchKeyword}
+                  placeholder="Cari berdasarkan todo"
+                  value={searchKeyword}
+                />
+                <FilterTabs activeFilter={activeFilter} onChange={setActiveFilter} />
+              </div>
+
+              <ApiTodoTable
+                emptyMessage="Todo API tidak ditemukan."
+                onDelete={handleDeleteTodo}
+                onEdit={setEditingTodo}
+                onToggleStatus={handleToggleStatus}
+                todos={paginatedTodos}
+              />
+
+              <PaginationControls
+                currentPage={currentPage}
+                limit={limit}
+                onLimitChange={setLimit}
+                onNext={() => setCurrentPage((page) => Math.min(page + 1, totalPages))}
+                onPrevious={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+                totalPages={totalPages}
+              />
+            </>
           )}
         </section>
       </div>

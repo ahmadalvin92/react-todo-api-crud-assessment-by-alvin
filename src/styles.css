@@ -409,6 +409,41 @@ h2 {
   gap: 8px;
 }
 
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.limit-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #475467;
+  font-weight: 700;
+}
+
+.limit-control select {
+  min-height: 38px;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 0 10px;
+}
+
+.page-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-buttons span {
+  color: #475467;
+  font-weight: 700;
+}
+
 @media (max-width: 760px) {
   .app-shell {
     width: min(100% - 24px, 1120px);
@@ -440,5 +475,12 @@ h2 {
 
   .todo-layout {
     grid-template-columns: 1fr;
+  }
+
+  .pagination-controls,
+  .page-buttons,
+  .limit-control {
+    align-items: stretch;
+    flex-direction: column;
   }
 }

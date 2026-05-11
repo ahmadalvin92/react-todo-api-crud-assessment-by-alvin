@@ -1,6 +1,12 @@
-function ApiTodoTable({ onDelete, onEdit, onToggleStatus, todos }) {
+function ApiTodoTable({
+  emptyMessage = 'Data todo API belum tersedia.',
+  onDelete,
+  onEdit,
+  onToggleStatus,
+  todos,
+}) {
   if (todos.length === 0) {
-    return <div className="empty-state">Data todo API belum tersedia.</div>;
+    return <div className="empty-state">{emptyMessage}</div>;
   }
 
   return (

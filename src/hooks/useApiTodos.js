@@ -29,7 +29,7 @@ export function useApiTodos() {
       setLoading(true);
       setError('');
 
-      const data = await fetchTodos({ limit: 10, skip: 0 });
+      const data = await fetchTodos({ limit: 30, skip: 0 });
       setTodos(data.todos.map(mapApiTodo));
     } catch {
       setError('Gagal memuat todo dari API.');
