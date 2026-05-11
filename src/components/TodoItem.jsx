@@ -17,11 +17,11 @@ function TodoItem({ onDelete, onEdit, onToggleStatus, todo }) {
         <div className="todo-title-row">
           <h3>{todo.title}</h3>
           <span className={isDone ? 'status-badge done' : 'status-badge pending'}>
-            {isDone ? 'Selesai' : 'Pending'}
+            {isDone ? 'Selesai' : 'Belum selesai'}
           </span>
         </div>
         <p>{todo.description}</p>
-        <small>Dibuat: {formatDate(todo.createdDate)}</small>
+        <small>Dibuat {formatDate(todo.createdDate)}</small>
       </div>
 
       <div className="todo-actions">
@@ -33,7 +33,7 @@ function TodoItem({ onDelete, onEdit, onToggleStatus, todo }) {
           onClick={() => onToggleStatus(todo.id)}
           type="button"
         >
-          {isDone ? 'Tandai Pending' : 'Tandai Selesai'}
+          {isDone ? 'Belum selesai' : 'Tandai selesai'}
         </button>
         <button className="danger-button compact" onClick={() => onDelete(todo.id)} type="button">
           Hapus

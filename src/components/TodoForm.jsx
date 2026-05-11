@@ -30,11 +30,11 @@ function TodoForm({
     const nextErrors = {};
 
     if (!form.title.trim()) {
-      nextErrors.title = 'Judul wajib diisi.';
+      nextErrors.title = 'Judulnya diisi dulu ya.';
     }
 
     if (!form.description.trim()) {
-      nextErrors.description = 'Deskripsi wajib diisi.';
+      nextErrors.description = 'Catatannya diisi dulu ya.';
     }
 
     setErrors(nextErrors);
@@ -61,12 +61,12 @@ function TodoForm({
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
       <div className="form-field">
-        <label htmlFor="title">Judul</label>
+        <label htmlFor="title">Judul Todo</label>
         <input
           id="title"
           name="title"
           onChange={handleChange}
-          placeholder="Contoh: Belajar React"
+          placeholder="Misal: Belajar React"
           type="text"
           value={form.title}
         />
@@ -74,12 +74,12 @@ function TodoForm({
       </div>
 
       <div className="form-field">
-        <label htmlFor="description">Deskripsi</label>
+        <label htmlFor="description">Catatan</label>
         <textarea
           id="description"
           name="description"
           onChange={handleChange}
-          placeholder="Tulis detail todo"
+          placeholder="Tulis catatan singkat"
           rows="4"
           value={form.description}
         />
@@ -90,7 +90,7 @@ function TodoForm({
         <div className="form-field">
           <label htmlFor="status">Status</label>
           <select id="status" name="status" onChange={handleChange} value={form.status}>
-            <option value="pending">Pending</option>
+            <option value="pending">Belum selesai</option>
             <option value="done">Selesai</option>
           </select>
         </div>

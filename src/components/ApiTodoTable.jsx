@@ -1,5 +1,5 @@
 function ApiTodoTable({
-  emptyMessage = 'Data todo API belum tersedia.',
+  emptyMessage = 'Belum ada todo API.',
   onDelete,
   onEdit,
   onToggleStatus,
@@ -16,7 +16,7 @@ function ApiTodoTable({
           <tr>
             <th>ID</th>
             <th>Todo</th>
-            <th>User</th>
+            <th>Pemilik</th>
             <th>Status</th>
             <th>Aksi</th>
           </tr>
@@ -29,7 +29,7 @@ function ApiTodoTable({
               <td>User {todo.userId}</td>
               <td>
                 <span className={todo.status === 'done' ? 'status-badge done' : 'status-badge pending'}>
-                  {todo.status === 'done' ? 'Selesai' : 'Pending'}
+                  {todo.status === 'done' ? 'Selesai' : 'Belum selesai'}
                 </span>
               </td>
               <td>
@@ -42,7 +42,7 @@ function ApiTodoTable({
                     onClick={() => onToggleStatus(todo)}
                     type="button"
                   >
-                    {todo.status === 'done' ? 'Pending' : 'Selesai'}
+                    {todo.status === 'done' ? 'Belum selesai' : 'Selesai'}
                   </button>
                   <button
                     className="danger-button compact"

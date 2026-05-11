@@ -66,7 +66,7 @@ function ApiTodoPage() {
   }
 
   async function handleDeleteTodo(todoId) {
-    const isConfirmed = window.confirm('Hapus todo API ini?');
+    const isConfirmed = window.confirm('Yakin mau hapus todo dari API ini?');
 
     if (isConfirmed) {
       const isSuccess = await deleteApiTodo(todoId);
@@ -88,15 +88,16 @@ function ApiTodoPage() {
     <div className="page-section">
       <div className="page-title-row">
         <div>
-          <p className="section-label">Integrasi REST API</p>
+          <p className="section-label">Ambil dari API</p>
           <h2>Todo API</h2>
           <p className="muted-text">
-            Data todo diambil dari DummyJSON dengan loading state dan error handling.
+            Data ini diambil dari DummyJSON. Kalau kamu tambah, edit, atau hapus, tampilannya
+            tetap ikut berubah.
           </p>
         </div>
 
         <button className="secondary-button" disabled={loading} onClick={reloadTodos} type="button">
-          {loading ? 'Memuat...' : 'Reload Data'}
+          {loading ? 'Lagi dimuat...' : 'Muat ulang'}
         </button>
       </div>
 
@@ -109,17 +110,17 @@ function ApiTodoPage() {
           onCancel={editingTodo ? () => setEditingTodo(null) : undefined}
           onSubmit={handleSubmitTodo}
           showStatus
-          submitLabel={editingTodo ? 'Simpan Todo API' : 'Tambah Todo API'}
+          submitLabel={editingTodo ? 'Simpan Editan' : 'Tambah Todo'}
         />
 
         <section className="todo-list-section" aria-label="Daftar todo API">
-          {actionLoading && <div className="inline-loading">Memproses perubahan...</div>}
+          {actionLoading && <div className="inline-loading">Sebentar, lagi diproses...</div>}
           {loading ? (
-            <div className="loading-state">Memuat data todo...</div>
+            <div className="loading-state">Lagi ambil data todo...</div>
           ) : (
             <>
               <div className="section-heading">
-                <h3>Data Todo API</h3>
+                <h3>Todo dari API</h3>
                 <span>
                   {filteredTodos.length} dari {todos.length} item
                 </span>
@@ -127,16 +128,16 @@ function ApiTodoPage() {
 
               <div className="todo-toolbar">
                 <SearchInput
-                  label="Cari Todo API"
+                  label="Cari todo API"
                   onChange={setSearchKeyword}
-                  placeholder="Cari berdasarkan todo"
+                  placeholder="Cari todo dari API"
                   value={searchKeyword}
                 />
                 <FilterTabs activeFilter={activeFilter} onChange={setActiveFilter} />
               </div>
 
               <ApiTodoTable
-                emptyMessage="Todo API tidak ditemukan."
+                emptyMessage="Belum ada todo API yang cocok."
                 onDelete={handleDeleteTodo}
                 onEdit={setEditingTodo}
                 onToggleStatus={handleToggleStatus}

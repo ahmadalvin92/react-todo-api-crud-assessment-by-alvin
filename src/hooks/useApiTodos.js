@@ -10,7 +10,7 @@ function mapApiTodo(todo) {
   return {
     id: todo.id,
     title: todo.todo,
-    description: `Todo dari DummyJSON untuk user #${todo.userId}.`,
+    description: `Todo dari DummyJSON, punya user #${todo.userId}.`,
     status: todo.completed ? 'done' : 'pending',
     createdDate: new Date().toISOString(),
     userId: todo.userId,
@@ -32,7 +32,7 @@ export function useApiTodos() {
       const data = await fetchTodos({ limit: 30, skip: 0 });
       setTodos(data.todos.map(mapApiTodo));
     } catch {
-      setError('Gagal memuat todo dari API.');
+      setError('Data API lagi gagal dimuat. Coba muat ulang ya.');
     } finally {
       setLoading(false);
     }
@@ -59,10 +59,10 @@ export function useApiTodos() {
       };
 
       setTodos((currentTodos) => [newTodo, ...currentTodos]);
-      setMessage('Todo API berhasil ditambahkan.');
+      setMessage('Todo API sudah ditambahkan.');
       return true;
     } catch {
-      setError('Gagal menambahkan todo API.');
+      setError('Todo API belum bisa ditambahkan. Coba lagi ya.');
       return false;
     } finally {
       setActionLoading(false);
@@ -89,10 +89,10 @@ export function useApiTodos() {
             : todo,
         ),
       );
-      setMessage('Todo API berhasil diperbarui.');
+      setMessage('Todo API sudah diperbarui.');
       return true;
     } catch {
-      setError('Gagal memperbarui todo API.');
+      setError('Todo API belum bisa diperbarui. Coba lagi ya.');
       return false;
     } finally {
       setActionLoading(false);
@@ -107,10 +107,10 @@ export function useApiTodos() {
 
       await deleteTodoRequest(todoId);
       setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== todoId));
-      setMessage('Todo API berhasil dihapus.');
+      setMessage('Todo API sudah dihapus.');
       return true;
     } catch {
-      setError('Gagal menghapus todo API.');
+      setError('Todo API belum bisa dihapus. Coba lagi ya.');
       return false;
     } finally {
       setActionLoading(false);

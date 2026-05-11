@@ -33,7 +33,7 @@ function LocalTodoPage() {
   }
 
   function handleDeleteTodo(todoId) {
-    const isConfirmed = window.confirm('Hapus todo ini?');
+    const isConfirmed = window.confirm('Yakin mau hapus todo ini?');
 
     if (isConfirmed) {
       deleteTodo(todoId);
@@ -44,11 +44,10 @@ function LocalTodoPage() {
   return (
     <div className="page-section">
       <div>
-        <p className="section-label">Penyimpanan Browser</p>
+        <p className="section-label">Disimpan di Browser</p>
         <h2>Todo Lokal</h2>
         <p className="muted-text">
-          Tambahkan todo yang tersimpan di LocalStorage dan tetap tersedia setelah halaman
-          dimuat ulang.
+          Todo yang kamu buat di sini tetap ada setelah halaman direfresh.
         </p>
       </div>
 
@@ -58,12 +57,12 @@ function LocalTodoPage() {
           onCancel={editingTodo ? () => setEditingTodo(null) : undefined}
           onSubmit={handleSubmitTodo}
           showStatus={Boolean(editingTodo)}
-          submitLabel={editingTodo ? 'Simpan Perubahan' : 'Tambah Todo'}
+          submitLabel={editingTodo ? 'Simpan Editan' : 'Tambah Todo'}
         />
 
         <section className="todo-list-section" aria-label="Daftar todo lokal">
           <div className="section-heading">
-            <h3>Daftar Todo</h3>
+            <h3>Todo Kamu</h3>
             <span>
               {filteredTodos.length} dari {todos.length} item
             </span>
@@ -72,14 +71,14 @@ function LocalTodoPage() {
           <div className="todo-toolbar">
             <SearchInput
               onChange={setSearchKeyword}
-              placeholder="Cari berdasarkan judul"
+              placeholder="Cari judul todo"
               value={searchKeyword}
             />
             <FilterTabs activeFilter={activeFilter} onChange={setActiveFilter} />
           </div>
 
           <TodoList
-            emptyMessage="Todo tidak ditemukan."
+            emptyMessage="Belum ada todo yang cocok."
             onDelete={handleDeleteTodo}
             onEdit={setEditingTodo}
             onToggleStatus={toggleTodoStatus}

@@ -21,10 +21,10 @@ function App() {
     <main className="app-shell">
       <section className="app-header">
         <div>
-          <p className="eyebrow">ReactJS Assessment</p>
-          <h1>Aplikasi Todo CRUD</h1>
+          <p className="eyebrow">Tes ReactJS</p>
+          <h1>Todo Harian</h1>
           <p className="header-description">
-            Kelola todo lokal dan todo dari API dalam satu aplikasi sederhana.
+            Catat, cari, dan beresin todo kamu. Ada versi lokal dan versi dari API.
           </p>
         </div>
 

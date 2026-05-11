@@ -2,7 +2,7 @@ function PaginationControls({ currentPage, limit, onLimitChange, onNext, onPrevi
   return (
     <div className="pagination-controls">
       <div className="limit-control">
-        <label htmlFor="pageLimit">Data per halaman</label>
+        <label htmlFor="pageLimit">Tampilkan</label>
         <select id="pageLimit" onChange={(event) => onLimitChange(Number(event.target.value))} value={limit}>
           <option value={5}>5</option>
           <option value={10}>10</option>
@@ -17,10 +17,10 @@ function PaginationControls({ currentPage, limit, onLimitChange, onNext, onPrevi
           onClick={onPrevious}
           type="button"
         >
-          Sebelumnya
+          Mundur
         </button>
         <span>
-          Halaman {currentPage} dari {totalPages}
+          Halaman {currentPage}/{totalPages}
         </span>
         <button
           className="secondary-button compact"
@@ -28,7 +28,7 @@ function PaginationControls({ currentPage, limit, onLimitChange, onNext, onPrevi
           onClick={onNext}
           type="button"
         >
-          Berikutnya
+          Lanjut
         </button>
       </div>
     </div>

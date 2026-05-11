@@ -1,7 +1,7 @@
 const filterOptions = [
   { label: 'Semua', value: 'all' },
   { label: 'Selesai', value: 'done' },
-  { label: 'Pending', value: 'pending' },
+  { label: 'Belum selesai', value: 'pending' },
 ];
 
 function FilterTabs({ activeFilter, onChange }) {
