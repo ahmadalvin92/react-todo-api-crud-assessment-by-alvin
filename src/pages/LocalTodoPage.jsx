@@ -1,9 +1,30 @@
+import { useState } from 'react';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
 import { useLocalTodos } from '../hooks/useLocalTodos';
 
 function LocalTodoPage() {
-  const { todos, addTodo } = useLocalTodos();
+  const { todos, addTodo, updateTodo, toggleTodoStatus, deleteTodo } = useLocalTodos();
+  const [editingTodo, setEditingTodo] = useState(null);
+
+  function handleSubmitTodo(payload) {
+    if (editingTodo) {
+      updateTodo(editingTodo.id, payload);
+      setEditingTodo(null);
+      return;
+    }
+
+    addTodo(payload);
+  }
+
+  function handleDeleteTodo(todoId) {
+    const isConfirmed = window.confirm('Hapus todo ini?');
+
+    if (isConfirmed) {
+      deleteTodo(todoId);
+      setEditingTodo((currentTodo) => (currentTodo?.id === todoId ? null : currentTodo));
+    }
+  }
 
   return (
     <div className="page-section">
@@ -17,14 +38,25 @@ function LocalTodoPage() {
       </div>
 
       <div className="todo-layout">
-        <TodoForm onSubmit={addTodo} submitLabel="Tambah Todo" />
+        <TodoForm
+          initialValue={editingTodo}
+          onCancel={editingTodo ? () => setEditingTodo(null) : undefined}
+          onSubmit={handleSubmitTodo}
+          showStatus={Boolean(editingTodo)}
+          submitLabel={editingTodo ? 'Simpan Perubahan' : 'Tambah Todo'}
+        />
 
         <section className="todo-list-section" aria-label="Daftar todo lokal">
           <div className="section-heading">
             <h3>Daftar Todo</h3>
             <span>{todos.length} item</span>
           </div>
-          <TodoList todos={todos} />
+          <TodoList
+            onDelete={handleDeleteTodo}
+            onEdit={setEditingTodo}
+            onToggleStatus={toggleTodoStatus}
+            todos={todos}
+          />
         </section>
       </div>
     </div>

@@ -8,7 +8,7 @@ function formatDate(dateValue) {
   }).format(new Date(dateValue));
 }
 
-function TodoItem({ todo }) {
+function TodoItem({ onDelete, onEdit, onToggleStatus, todo }) {
   const isDone = todo.status === 'done';
 
   return (
@@ -22,6 +22,22 @@ function TodoItem({ todo }) {
         </div>
         <p>{todo.description}</p>
         <small>Dibuat: {formatDate(todo.createdDate)}</small>
+      </div>
+
+      <div className="todo-actions">
+        <button className="secondary-button compact" onClick={() => onEdit(todo)} type="button">
+          Edit
+        </button>
+        <button
+          className="secondary-button compact"
+          onClick={() => onToggleStatus(todo.id)}
+          type="button"
+        >
+          {isDone ? 'Tandai Pending' : 'Tandai Selesai'}
+        </button>
+        <button className="danger-button compact" onClick={() => onDelete(todo.id)} type="button">
+          Hapus
+        </button>
       </div>
     </article>
   );

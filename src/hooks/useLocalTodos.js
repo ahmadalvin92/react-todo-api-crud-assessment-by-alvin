@@ -22,8 +22,40 @@ export function useLocalTodos() {
     setTodos((currentTodos) => [newTodo, ...currentTodos]);
   }
 
+  function updateTodo(todoId, payload) {
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === todoId
+          ? {
+              ...todo,
+              title: payload.title.trim(),
+              description: payload.description.trim(),
+              status: payload.status,
+            }
+          : todo,
+      ),
+    );
+  }
+
+  function toggleTodoStatus(todoId) {
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) =>
+        todo.id === todoId
+          ? { ...todo, status: todo.status === 'done' ? 'pending' : 'done' }
+          : todo,
+      ),
+    );
+  }
+
+  function deleteTodo(todoId) {
+    setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== todoId));
+  }
+
   return {
     todos,
     addTodo,
+    updateTodo,
+    toggleTodoStatus,
+    deleteTodo,
   };
 }

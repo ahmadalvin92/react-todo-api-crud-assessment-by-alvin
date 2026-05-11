@@ -1,6 +1,12 @@
 import TodoItem from './TodoItem';
 
-function TodoList({ todos, emptyMessage = 'Belum ada todo.' }) {
+function TodoList({
+  emptyMessage = 'Belum ada todo.',
+  onDelete,
+  onEdit,
+  onToggleStatus,
+  todos,
+}) {
   if (todos.length === 0) {
     return <div className="empty-state">{emptyMessage}</div>;
   }
@@ -8,7 +14,13 @@ function TodoList({ todos, emptyMessage = 'Belum ada todo.' }) {
   return (
     <div className="todo-list">
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem
+          key={todo.id}
+          onDelete={onDelete}
+          onEdit={onEdit}
+          onToggleStatus={onToggleStatus}
+          todo={todo}
+        />
       ))}
     </div>
   );

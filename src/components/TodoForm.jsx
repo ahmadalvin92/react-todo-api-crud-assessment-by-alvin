@@ -3,9 +3,16 @@ import { useEffect, useState } from 'react';
 const initialForm = {
   title: '',
   description: '',
+  status: 'pending',
 };
 
-function TodoForm({ initialValue, onSubmit, submitLabel = 'Simpan Todo' }) {
+function TodoForm({
+  initialValue,
+  onCancel,
+  onSubmit,
+  showStatus = false,
+  submitLabel = 'Simpan Todo',
+}) {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
 
@@ -74,9 +81,26 @@ function TodoForm({ initialValue, onSubmit, submitLabel = 'Simpan Todo' }) {
         {errors.description && <span className="field-error">{errors.description}</span>}
       </div>
 
-      <button className="primary-button" type="submit">
-        {submitLabel}
-      </button>
+      {showStatus && (
+        <div className="form-field">
+          <label htmlFor="status">Status</label>
+          <select id="status" name="status" onChange={handleChange} value={form.status}>
+            <option value="pending">Pending</option>
+            <option value="done">Selesai</option>
+          </select>
+        </div>
+      )}
+
+      <div className="form-actions">
+        <button className="primary-button" type="submit">
+          {submitLabel}
+        </button>
+        {onCancel && (
+          <button className="secondary-button" onClick={onCancel} type="button">
+            Batal
+          </button>
+        )}
+      </div>
     </form>
   );
 }
