@@ -1,40 +1,39 @@
 import axios from 'axios';
 
 const todoApiClient = axios.create({
-  baseURL: 'https://dummyjson.com',
+  baseURL: 'http://127.0.0.1:3001/api',
   timeout: 10000,
 });
 
-// Semua request todo API dikumpulkan di sini agar component tetap fokus ke UI.
-export async function fetchTodos({ limit = 10, skip = 0 } = {}) {
-  const response = await todoApiClient.get('/todos', {
-    params: { limit, skip },
-  });
+// Semua request database todo dikumpulkan di sini agar component tetap fokus ke UI.
+export async function fetchTodos() {
+  const response = await todoApiClient.get('/todo');
 
-  return response.data;
+  return response.data.data;
 }
 
 export async function createTodo(payload) {
-  const response = await todoApiClient.post('/todos/add', {
-    todo: payload.title,
-    completed: payload.status === 'done',
-    userId: 1,
+  const response = await todoApiClient.post('/todo', {
+    judul: payload.title,
+    catatan: payload.description,
+    status: payload.status === 'done' ? 'selesai' : 'belum_selesai',
   });
 
-  return response.data;
+  return response.data.data;
 }
 
 export async function updateTodo(todoId, payload) {
-  const response = await todoApiClient.put(`/todos/${todoId}`, {
-    todo: payload.title,
-    completed: payload.status === 'done',
+  const response = await todoApiClient.put(`/todo/${todoId}`, {
+    judul: payload.title,
+    catatan: payload.description,
+    status: payload.status === 'done' ? 'selesai' : 'belum_selesai',
   });
 
-  return response.data;
+  return response.data.data;
 }
 
 export async function deleteTodo(todoId) {
-  const response = await todoApiClient.delete(`/todos/${todoId}`);
+  const response = await todoApiClient.delete(`/todo/${todoId}`);
 
   return response.data;
 }

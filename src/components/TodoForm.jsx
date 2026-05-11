@@ -30,11 +30,11 @@ function TodoForm({
     const nextErrors = {};
 
     if (!form.title.trim()) {
-      nextErrors.title = 'Judulnya diisi dulu ya.';
+      nextErrors.title = 'Judul perlu diisi.';
     }
 
     if (!form.description.trim()) {
-      nextErrors.description = 'Catatannya diisi dulu ya.';
+      nextErrors.description = 'Catatan perlu diisi.';
     }
 
     setErrors(nextErrors);

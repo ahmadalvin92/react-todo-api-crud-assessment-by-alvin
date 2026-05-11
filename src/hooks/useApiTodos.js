@@ -9,11 +9,11 @@ import {
 function mapApiTodo(todo) {
   return {
     id: todo.id,
-    title: todo.todo,
-    description: `Todo dari DummyJSON, punya user #${todo.userId}.`,
-    status: todo.completed ? 'done' : 'pending',
-    createdDate: new Date().toISOString(),
-    userId: todo.userId,
+    title: todo.judul,
+    description: todo.catatan,
+    status: todo.status === 'selesai' ? 'done' : 'pending',
+    createdDate: todo.tanggal_dibuat,
+    updatedDate: todo.tanggal_diubah,
   };
 }
 
@@ -29,10 +29,10 @@ export function useApiTodos() {
       setLoading(true);
       setError('');
 
-      const data = await fetchTodos({ limit: 30, skip: 0 });
-      setTodos(data.todos.map(mapApiTodo));
+      const data = await fetchTodos();
+      setTodos(data.map(mapApiTodo));
     } catch {
-      setError('Data API lagi gagal dimuat. Coba muat ulang ya.');
+      setError('Data database belum bisa dibuka. Coba muat ulang.');
     } finally {
       setLoading(false);
     }
@@ -49,20 +49,13 @@ export function useApiTodos() {
       setMessage('');
 
       const createdTodo = await createTodoRequest(payload);
-      const newTodo = {
-        id: createdTodo.id,
-        title: createdTodo.todo,
-        description: payload.description,
-        status: createdTodo.completed ? 'done' : 'pending',
-        createdDate: new Date().toISOString(),
-        userId: createdTodo.userId,
-      };
+      const newTodo = mapApiTodo(createdTodo);
 
       setTodos((currentTodos) => [newTodo, ...currentTodos]);
-      setMessage('Todo API sudah ditambahkan.');
+      setMessage('Todo sudah ditambahkan ke database.');
       return true;
     } catch {
-      setError('Todo API belum bisa ditambahkan. Coba lagi ya.');
+      setError('Todo belum bisa ditambahkan ke database. Coba lagi.');
       return false;
     } finally {
       setActionLoading(false);
@@ -82,17 +75,15 @@ export function useApiTodos() {
           todo.id === todoId
             ? {
                 ...todo,
-                title: updatedTodo.todo,
-                description: payload.description,
-                status: updatedTodo.completed ? 'done' : 'pending',
+                ...mapApiTodo(updatedTodo),
               }
             : todo,
         ),
       );
-      setMessage('Todo API sudah diperbarui.');
+      setMessage('Todo di database sudah diperbarui.');
       return true;
     } catch {
-      setError('Todo API belum bisa diperbarui. Coba lagi ya.');
+      setError('Todo belum bisa diperbarui. Coba lagi.');
       return false;
     } finally {
       setActionLoading(false);
@@ -107,10 +98,10 @@ export function useApiTodos() {
 
       await deleteTodoRequest(todoId);
       setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== todoId));
-      setMessage('Todo API sudah dihapus.');
+      setMessage('Todo sudah dihapus dari database.');
       return true;
     } catch {
-      setError('Todo API belum bisa dihapus. Coba lagi ya.');
+      setError('Todo belum bisa dihapus. Coba lagi.');
       return false;
     } finally {
       setActionLoading(false);

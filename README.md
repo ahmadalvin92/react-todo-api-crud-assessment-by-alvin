@@ -1,53 +1,92 @@
-# React Todo API CRUD Assessment
+# Aplikasi Todo React
 
-Aplikasi Todo CRUD berbasis ReactJS + Vite untuk technical test frontend. Aplikasi ini memiliki dua mode utama: Todo Lokal dengan LocalStorage dan Todo API dengan integrasi DummyJSON.
+Aplikasi ini dibuat untuk technical test frontend menggunakan ReactJS. Fitur utama dibagi menjadi dua bagian: Todo Lokal dan Todo Database.
 
-## Fitur Aplikasi
+## Fitur
 
-- Todo Lokal dengan fitur tambah, tampil, edit, ubah status, hapus, search, dan filter.
-- Todo Lokal tersimpan di LocalStorage sehingga data tidak hilang setelah refresh.
-- Todo API dengan fitur fetch data, create, update, delete, search, filter, dan pagination.
-- Loading state, error handling, serta pesan sukses/error sederhana.
-- Component reusable untuk form, list, item, search, filter, tabel, dan pagination.
-- Layout responsif sederhana untuk desktop dan mobile.
-- UI menggunakan Bahasa Indonesia.
+- Tambah, lihat, edit, ubah status, dan hapus todo lokal.
+- Todo lokal tersimpan di LocalStorage.
+- Tambah, lihat, edit, ubah status, dan hapus todo dari database MySQL.
+- Pencarian dan filter status.
+- Pagination untuk data dari database.
+- Loading state dan pesan error sederhana.
+- Tampilan responsif untuk desktop dan mobile.
 
-## Teknologi yang Digunakan
+## Teknologi
 
 - ReactJS
 - Vite
 - JavaScript
 - Axios
+- Node.js
+- Express
+- MySQL
 - LocalStorage
 - CSS biasa
-- DummyJSON Todos API
 
 ## Struktur Folder
 
 ```text
 src/
   components/
-    ApiTodoTable.jsx
-    FilterTabs.jsx
-    PaginationControls.jsx
-    SearchInput.jsx
-    TodoForm.jsx
-    TodoItem.jsx
-    TodoList.jsx
   hooks/
-    useApiTodos.js
-    useLocalTodos.js
   pages/
-    ApiTodoPage.jsx
-    LocalTodoPage.jsx
   services/
-    todoApi.js
   utils/
-    localStorage.js
-  App.jsx
-  main.jsx
-  styles.css
+server/
+  database.js
+  index.js
+database/
+  schema.sql
 ```
+
+## Database
+
+Database yang dipakai:
+
+```text
+todo_harian
+```
+
+Tabel yang dipakai:
+
+```text
+daftar_todo
+```
+
+Kolom tabel:
+
+```text
+id
+judul
+catatan
+status
+tanggal_dibuat
+tanggal_diubah
+```
+
+Status todo memakai nilai:
+
+```text
+belum_selesai
+selesai
+```
+
+Schema database tersedia di:
+
+```text
+database/schema.sql
+```
+
+## Cara Menyiapkan Database
+
+Pastikan MySQL dari XAMPP sudah aktif, lalu jalankan:
+
+```bash
+/Applications/XAMPP/xamppfiles/bin/mysql -h127.0.0.1 -P3306 -uroot < database/schema.sql
+```
+
+Database juga bisa dicek lewat phpMyAdmin.
 
 ## Cara Install
 
@@ -55,16 +94,30 @@ src/
 npm install
 ```
 
-## Cara Menjalankan Project
+## Cara Menjalankan Backend
+
+```bash
+npm run api
+```
+
+Backend berjalan di:
+
+```text
+http://127.0.0.1:3001
+```
+
+## Cara Menjalankan Frontend
+
+Buka terminal baru, lalu jalankan:
 
 ```bash
 npm run dev
 ```
 
-Setelah server aktif, buka URL yang muncul di terminal, biasanya:
+Frontend berjalan di:
 
 ```text
-http://localhost:5173
+http://127.0.0.1:5173
 ```
 
 ## Cara Build
@@ -73,53 +126,16 @@ http://localhost:5173
 npm run build
 ```
 
-## Penjelasan Singkat Architecture
+## Catatan Arsitektur
 
-Project dipisahkan berdasarkan tanggung jawab agar kode mudah dibaca dan dirawat.
+- `components` berisi komponen UI yang dipakai ulang.
+- `hooks` berisi logic todo lokal dan todo database.
+- `services` berisi request Axios ke backend.
+- `server` berisi backend Express untuk koneksi ke MySQL.
+- `database` berisi schema MySQL.
 
-- `components` berisi UI reusable seperti form, daftar todo, tabel, search, filter, dan pagination.
-- `pages` berisi halaman utama untuk Todo Lokal dan Todo API.
-- `hooks` berisi logic state dan operasi todo agar component tetap fokus pada tampilan.
-- `services` berisi request API menggunakan Axios.
-- `utils` berisi helper umum, termasuk LocalStorage.
-
-Todo Lokal memakai `useLocalTodos` untuk mengatur CRUD dan persist data. Todo API memakai `useApiTodos` untuk mengambil data dari API, menjalankan CRUD, dan menjaga state UI tetap berubah setelah response berhasil.
-
-## API yang Digunakan
-
-Aplikasi menggunakan DummyJSON Todos API:
-
-```text
-https://dummyjson.com/todos
-```
-
-Endpoint yang dipakai:
-
-- `GET /todos` untuk mengambil data todo.
-- `POST /todos/add` untuk membuat todo baru.
-- `PUT /todos/:id` untuk memperbarui todo.
-- `DELETE /todos/:id` untuk menghapus todo.
-
-Karena DummyJSON adalah API dummy, perubahan create, update, dan delete tidak tersimpan permanen di server. Setelah response berhasil, aplikasi memperbarui state lokal agar UI tetap menampilkan hasil perubahan.
-
-## Daftar Commit dan Fitur
-
-- `chore: setup initial react todo project structure` - setup Vite, struktur folder, layout, dan navigasi.
-- `feat: add local todo create and read feature` - form tambah todo lokal, list todo, dan LocalStorage.
-- `feat: add local todo update and delete feature` - edit, ubah status, dan hapus todo lokal.
-- `feat: add local todo search and filter feature` - search dan filter todo lokal.
-- `feat: add todo api service layer` - service API dengan Axios.
-- `feat: fetch todo api data with loading and error handling` - fetch todo API, loading, error, dan reload.
-- `feat: implement todo api crud feature` - create, update, delete todo API.
-- `feat: add api todo search filter and pagination` - search, filter, dan pagination todo API.
-- `style: improve responsive todo app interface` - polish UI dan responsif.
-- `docs: add project documentation` - dokumentasi project.
+Data todo lokal tetap disimpan di browser. Data todo database tersimpan di MySQL, sehingga isi tabel dapat dilihat dan dikelola melalui phpMyAdmin.
 
 ## Screenshot
 
-Screenshot aplikasi dapat ditambahkan pada bagian ini.
-
-```text
-docs/screenshots/local-todo.png
-docs/screenshots/api-todo.png
-```
+Screenshot dapat ditambahkan di bagian ini.

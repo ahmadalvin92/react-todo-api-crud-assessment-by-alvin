@@ -44,10 +44,10 @@ function LocalTodoPage() {
   return (
     <div className="page-section">
       <div>
-        <p className="section-label">Disimpan di Browser</p>
+        <p className="section-label">Disimpan Lokal</p>
         <h2>Todo Lokal</h2>
         <p className="muted-text">
-          Todo yang kamu buat di sini tetap ada setelah halaman direfresh.
+          Todo yang dibuat di halaman ini tetap tersimpan setelah halaman dimuat ulang.
         </p>
       </div>
 
@@ -57,14 +57,14 @@ function LocalTodoPage() {
           onCancel={editingTodo ? () => setEditingTodo(null) : undefined}
           onSubmit={handleSubmitTodo}
           showStatus={Boolean(editingTodo)}
-          submitLabel={editingTodo ? 'Simpan Editan' : 'Tambah Todo'}
+          submitLabel={editingTodo ? 'Simpan' : 'Tambah Todo'}
         />
 
         <section className="todo-list-section" aria-label="Daftar todo lokal">
           <div className="section-heading">
-            <h3>Todo Kamu</h3>
+            <h3>Daftar Todo</h3>
             <span>
-              {filteredTodos.length} dari {todos.length} item
+              {filteredTodos.length} dari {todos.length} data
             </span>
           </div>
 

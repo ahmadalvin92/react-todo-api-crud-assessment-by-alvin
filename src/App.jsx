@@ -9,7 +9,7 @@ const pages = {
     component: <LocalTodoPage />,
   },
   api: {
-    label: 'Todo API',
+    label: 'Todo Database',
     component: <ApiTodoPage />,
   },
 };
@@ -22,9 +22,9 @@ function App() {
       <section className="app-header">
         <div>
           <p className="eyebrow">Tes ReactJS</p>
-          <h1>Todo Harian</h1>
+          <h1>Aplikasi Todo</h1>
           <p className="header-description">
-            Catat, cari, dan beresin todo kamu. Ada versi lokal dan versi dari API.
+            Catat, cari, dan selesaikan todo dalam satu aplikasi sederhana.
           </p>
         </div>
 

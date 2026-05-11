@@ -66,7 +66,7 @@ function ApiTodoPage() {
   }
 
   async function handleDeleteTodo(todoId) {
-    const isConfirmed = window.confirm('Yakin mau hapus todo dari API ini?');
+    const isConfirmed = window.confirm('Yakin mau hapus todo dari database?');
 
     if (isConfirmed) {
       const isSuccess = await deleteApiTodo(todoId);
@@ -88,11 +88,10 @@ function ApiTodoPage() {
     <div className="page-section">
       <div className="page-title-row">
         <div>
-          <p className="section-label">Ambil dari API</p>
-          <h2>Todo API</h2>
+          <p className="section-label">Tersimpan di MySQL</p>
+          <h2>Todo Database</h2>
           <p className="muted-text">
-            Data ini diambil dari DummyJSON. Kalau kamu tambah, edit, atau hapus, tampilannya
-            tetap ikut berubah.
+            Data pada bagian ini tersimpan di database MySQL dan bisa dilihat lewat phpMyAdmin.
           </p>
         </div>
 
@@ -110,34 +109,34 @@ function ApiTodoPage() {
           onCancel={editingTodo ? () => setEditingTodo(null) : undefined}
           onSubmit={handleSubmitTodo}
           showStatus
-          submitLabel={editingTodo ? 'Simpan Editan' : 'Tambah Todo'}
+          submitLabel={editingTodo ? 'Simpan' : 'Tambah Todo'}
         />
 
-        <section className="todo-list-section" aria-label="Daftar todo API">
+        <section className="todo-list-section" aria-label="Daftar todo database">
           {actionLoading && <div className="inline-loading">Sebentar, lagi diproses...</div>}
           {loading ? (
             <div className="loading-state">Lagi ambil data todo...</div>
           ) : (
             <>
               <div className="section-heading">
-                <h3>Todo dari API</h3>
+                <h3>Data Todo</h3>
                 <span>
-                  {filteredTodos.length} dari {todos.length} item
+                  {filteredTodos.length} dari {todos.length} data
                 </span>
               </div>
 
               <div className="todo-toolbar">
                 <SearchInput
-                  label="Cari todo API"
+                  label="Cari todo"
                   onChange={setSearchKeyword}
-                  placeholder="Cari todo dari API"
+                  placeholder="Cari judul todo"
                   value={searchKeyword}
                 />
                 <FilterTabs activeFilter={activeFilter} onChange={setActiveFilter} />
               </div>
 
               <ApiTodoTable
-                emptyMessage="Belum ada todo API yang cocok."
+                emptyMessage="Belum ada todo yang cocok."
                 onDelete={handleDeleteTodo}
                 onEdit={setEditingTodo}
                 onToggleStatus={handleToggleStatus}

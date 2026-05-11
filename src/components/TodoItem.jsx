@@ -26,7 +26,7 @@ function TodoItem({ onDelete, onEdit, onToggleStatus, todo }) {
 
       <div className="todo-actions">
         <button className="secondary-button compact" onClick={() => onEdit(todo)} type="button">
-          Edit
+          Ubah
         </button>
         <button
           className="secondary-button compact"
