@@ -119,6 +119,150 @@ h2 {
   gap: 16px;
 }
 
+.todo-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.todo-form,
+.todo-list-section {
+  padding: 18px;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  background: #fcfcfd;
+}
+
+.todo-form {
+  display: grid;
+  gap: 16px;
+}
+
+.form-field {
+  display: grid;
+  gap: 8px;
+}
+
+.form-field label {
+  color: #344054;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1d2939;
+  padding: 12px;
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.field-error {
+  color: #d92d20;
+  font-size: 0.86rem;
+}
+
+.primary-button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.section-heading h3 {
+  margin: 0;
+}
+
+.section-heading span {
+  color: #667085;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.todo-list {
+  display: grid;
+  gap: 12px;
+}
+
+.todo-item {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.todo-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.todo-title-row h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.todo-content p {
+  margin: 8px 0;
+  color: #475467;
+  line-height: 1.6;
+}
+
+.todo-content small {
+  color: #667085;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-badge.pending {
+  background: #fff4cc;
+  color: #8a6100;
+}
+
+.status-badge.done {
+  background: #dcfae6;
+  color: #067647;
+}
+
+.empty-state {
+  padding: 22px;
+  border: 1px dashed #d0d5dd;
+  border-radius: 8px;
+  color: #667085;
+  text-align: center;
+}
+
 @media (max-width: 760px) {
   .app-shell {
     width: min(100% - 24px, 1120px);
@@ -141,5 +285,9 @@ h2 {
 
   .content-panel {
     padding: 18px;
+  }
+
+  .todo-layout {
+    grid-template-columns: 1fr;
   }
 }
